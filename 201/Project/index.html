@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JavaScript Project</title>
+    </head>
+    <body>
+        <strong>Name:</strong>
+        <div id="name">...</div>
+        <img id="imageid" src="" alt="" />
+
+        <strong>Eye Color:</strong>
+        <div id="eyecolor">...</div>
+
+        <strong>Birth Year:</strong>
+        <div id="birthyear">...</div>
+
+        <button class="getRandomCharacter">Randomize!</button>
+        <script>
+            const name = document.getElementById("name");
+            const eyecolor = document.getElementById("eyecolor");
+            const birthyear = document.getElementById("birthyear");
+            const button = document.querySelector(".getRandomCharacter");
+
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                name.innerHTML = "<em>Loading....</em>";
+                eyecolor.innerHTML = "<em>Loading....</em>";
+                birthyear.innerHTML = "<em>Loading....</em>";
+
+                var charNumbers = Math.floor(Math.random() * 83);
+
+                if (charNumbers === 0 || charNumbers === 17) {
+                    charNumbers = 1;
+                } else {
+                    charNumbers = charNumbers;
+                }
+                fetch(`https://swapi.dev/api/people/${charNumbers}`)
+                    .then((response) => response.json())
+                    .then((character) => {
+                        name.innerText = character["name"];
+                        eyecolor.innerText = character["eye_color"];
+                        birthyear.innerText = character["birth_year"];
+                    });
+            });
+        </script>
+    </body>
+</html>
